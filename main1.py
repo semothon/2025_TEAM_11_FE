@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 from database import SessionLocal, engine, Base
 from models import Crawling
 
-# 개발 환경용: 기존 테이블 삭제 후 재생성 (운영 환경에서는 사용하지 마세요!)
+
 Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)
 
@@ -19,7 +19,7 @@ app = FastAPI()
 logging.basicConfig(level=logging.INFO)
 
 
-# DB 세션 의존성 주입 함수
+
 def get_db():
     db = SessionLocal()
     try:
@@ -106,7 +106,7 @@ def get_description(url: str) -> str:
         return "상세 내용 없음"
 
 
-# 크롤링 후 데이터를 DB에 저장하는 엔드포인트
+
 @app.get("/wevity/{page}", response_model=List[dict])
 def get_wevity_data(page: int, db: Session = Depends(get_db)):
     base_url = 'https://www.wevity.com/?c=find&s=1&gub=1'
@@ -134,7 +134,7 @@ def get_wevity_data(page: int, db: Session = Depends(get_db)):
     return activities
 
 
-# 저장된 크롤링 데이터를 조회하는 엔드포인트
+
 @app.get("/crawlings", response_model=List[dict])
 def read_crawlings(db: Session = Depends(get_db)):
     crawlings = db.query(Crawling).all()

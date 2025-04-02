@@ -7,13 +7,12 @@ class Crawling(Base):
     __tablename__ = "crawling"
 
     crawling_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    title = Column(String, nullable=False)         # 추가된 필드
-    url = Column(String, nullable=False)           # 추가된 필드
-    image_url = Column(String, nullable=False)     # 추가된 필드
-    description = Column(Text, nullable=False)       # 기존 필드
+    title = Column(String, nullable=False)
+    url = Column(String, nullable=False)
+    image_url = Column(String, nullable=False)
+    description = Column(Text, nullable=False)
 
-    # 만약 관계가 필요하면 아래와 같이 추가할 수 있습니다.
-    # user_crawling_recommendations = relationship("UserCrawlingRecommendation", cascade="all, delete-orphan")
+
 
 def crawling_to_descriptable(crawling: Crawling) -> dict:
     return CrawlingDescriptable(crawling.description, crawling.crawling_id)

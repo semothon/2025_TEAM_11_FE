@@ -1,4 +1,3 @@
-# custom_descriptable.py
 
 class CrawlingDescriptable:
     def __init__(self, description, crawling_id):
